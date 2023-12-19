@@ -1,0 +1,23 @@
+## **Part I**
+
+Answer the following questions:
+- What ***git*** command creates a branch?
+  git branch branch_name
+
+- What is the difference between a fast-forward and recursive merge?
+  Fast-forward merge is a simple linear integration when there is no divergence between branches.
+  Recursive merge is needed when branches have diverged, resulting in the creation of a new merge commit. 
+  The choice between them depends on the branch histories and the desired structure of the commit history. 
+  Fast-forward merges are generally cleaner and more straightforward, but they are not always possible 
+  when working with branches that have diverged.
+
+- What ***git*** command changes to another branch?
+  git checkout branch_name
+
+- What ***git*** command deletes a branch?
+  git branch -d/D branch_name
+
+- How do merge conflicts happen?
+  Merge conflict occur when git cannot merge branches automatically and require human intervension. Usually if a user
+  attempts to merge 2 branches that have same filename but different contents, git will not be able to decide which changes
+  to keep and which to discard. In that case, the user will have to decide on what changes to be kept and merge the branches. 
