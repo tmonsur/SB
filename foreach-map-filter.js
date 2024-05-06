@@ -81,7 +81,17 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 function vowelCount(str){
-    
+    let vCount = {};
+    const vowels = "aeiouAEIOU";
+
+    Array.from(str).forEach(char => {
+        let lowercaseChar = char.toLowerCase();
+
+        if (vowels.includes(lowercaseChar)) {
+            vCount[lowercaseChar] = (vCount[lowercaseChar] || 0) + 1;
+        }
+    });
+    return vCount;
    
 }
 
@@ -94,7 +104,11 @@ Examples:
     doubleValuesWithMap([1,-2,-3]) // [2,-4,-6]
 */
 
-function doubleValuesWithMap(arr) {}
+function doubleValuesWithMap(arr) {
+    return arr.map(function(val){
+        return val*2;
+        });
+}
 
 /*
 Write a function called valTimesIndex which accepts an array and returns 
@@ -106,7 +120,9 @@ Examples:
 */
 
 function valTimesIndex(arr){
-    
+    return arr.map(function(val,ind){
+        return val*ind;
+    });
 }
 
 /*
@@ -118,7 +134,9 @@ Examples:
 */
 
 function extractKey(arr, key){
-    
+    return arr.map(function(val){
+        return val[key];
+    });
 }
 
 /*
@@ -126,11 +144,14 @@ Write a function called extractFullName which accepts an array of objects and re
 a new array with the value of the key with a name of "first" and the value of a key with the name of  "last" in each object, concatenated together with a space. 
 
 Examples:
-    extractFullName([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia"}, {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele"}]) // ['Elie Schoppik', 'Tim Garcia', 'Matt Lane', 'Colt Steele']
+    extractFullName([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia"}, {first: 'Matt', last:"Lane"}, 
+    {first: 'Colt', last:"Steele"}]) // ['Elie Schoppik', 'Tim Garcia', 'Matt Lane', 'Colt Steele']
 */
 
 function extractFullName(arr){
-    
+    return arr.map(function(val){
+        return val.first + " " + val.last;
+    });
 }
 
 /*Filter
@@ -142,7 +163,9 @@ Examples:
     [{first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Colt', last:"Steele", isCatOwner: true}]
 */
 
-function filterByValue(arr, key) {}
+function filterByValue(arr, key) {
+    return arr.filter(obj => obj.hasOwnProperty(key));
+}
 
 /*
 Write a function called find which accepts an array and a value and returns 
@@ -153,17 +176,27 @@ Examples:
     find([1,2,3,4,5], 10) // undefined
 */
 
-function find(arr, searchValue) {}
+function find(arr, searchValue) {
+    return arr.find(function(val) {
+        return val === searchValue;
+    });
+}
 
 /*
-Write a function called findInObj which accepts an array of objects, a key, and some value to search for and returns the first found value in the array.
+Write a function called findInObj which accepts an array of objects, a key, and some value 
+to search for and returns the first found value in the array.
 
 Examples:
     findInObj([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Matt', last:"Lane"}, 
     {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner',true) // {first: 'Tim', last:"Garcia", isCatOwner: true}
 */
 
-function findInObj(arr, key, searchValue) {}
+function findInObj(arr, key, searchValue) {
+    return arr.filter(function(val) {
+        return val[key] === searchValue;
+      });
+
+}
 
 /*
 Write a function called removeVowels which accepts a string and returns a new string with all of the vowels 
@@ -175,7 +208,18 @@ Examples:
     removeVowels('ZZZZZZ') // ('zzzzzz')
 */
 
-function removeVowels(str) {}
+function removeVowels(str) {
+    const vowels = "aeiouAEIOU";
+
+    let resultArray = Array.from(str).filter(function(char) {
+        return !vowels.includes(char);
+    });
+
+    let result = resultArray.join("").toLowerCase();
+    return result;
+
+
+}
 
 /*
 Write a function called doubleOddNumbers which accepts an array and returns a new array with all 
@@ -186,4 +230,12 @@ Examples:
     doubleOddNumbers([4,4,4,4,4]) // []
 */
 
-function doubleOddNumbers(arr) {}
+function doubleOddNumbers(arr) {
+    let newArr = arr.filter(function(val){
+        return val % 2 !== 0;
+    });
+
+    return newArr.map(function(val){
+        return val*2;
+    });
+}
