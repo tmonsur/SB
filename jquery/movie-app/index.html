@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ratings App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Movie Ratings App</h1>
+
+    <form id="movieForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required minlength="2">
+        <label for="rating">Rating (0-10):</label>
+        <input type="number" id="rating" name="rating" min="0" max="10" required>
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <div class="sort-buttons">
+        <button id="sortTitleAsc">Sort by Title (A-Z)</button>
+        <button id="sortTitleDesc">Sort by Title (Z-A)</button>
+        <button id="sortRatingAsc">Sort by Rating (Low to High)</button>
+        <button id="sortRatingDesc">Sort by Rating (High to Low)</button>
+    </div>
+
+    <div id="movieList">
+        <!-- Movie items will be appended here -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to add a movie item to the list
+            function addMovie(title, rating) {
+                // Create movie item
+                let $movieItem = $("<div>").addClass("movie-item");
+                let $title = $("<h3>").text(title);
+                let $rating = $("<p>").text(`Rating: ${rating}`);
+                let $removeButton = $("<button>").addClass("remove").text("Remove");
+
+                // Append title, rating, and remove button to movie item
+                $movieItem.append($title, $rating, $removeButton);
+
+                // Append movie item to movie list
+                $("#movieList").append($movieItem);
+
+                // Event handler for remove button
+                $removeButton.on("click", function() {
+                    $movieItem.remove();
+                });
+            }
+
+            // Event listener for form submission
+            $("#movieForm").on("submit", function(event) {
+                event.preventDefault();
+                let title = $("#title").val();
+                let rating = $("#rating").val();
+
+                // Validate inputs
+                if (title.length < 2) {
+                    alert("Title must be at least 2 characters.");
+                    return;
+                }
+                if (rating < 0 || rating > 10) {
+                    alert("Rating must be between 0 and 10.");
+                    return;
+                }
+
+                // Add movie to list
+                addMovie(title, rating);
+
+                // Reset form inputs
+                $("#movieForm")[0].reset();
+            });
+
+            // Sorting functionality
+            $("#sortTitleAsc").on("click", function() {
+                sortMovies("title", "asc");
+            });
+
+            $("#sortTitleDesc").on("click", function() {
+                sortMovies("title", "desc");
+            });
+
+            $("#sortRatingAsc").on("click", function() {
+                sortMovies("rating", "asc");
+            });
+
+            $("#sortRatingDesc").on("click", function() {
+                sortMovies("rating", "desc");
+            });
+
+            function sortMovies(property, order) {
+                let $movies = $(".movie-item");
+
+                $movies.sort(function(a, b) {
+                    let aValue = $(a).find("h3").text().toUpperCase();
+                    let bValue = $(b).find("h3").text().toUpperCase();
+
+                    if (property === "rating") {
+                        aValue = parseFloat($(a).find("p").text().replace("Rating: ", ""));
+                        bValue = parseFloat($(b).find("p").text().replace("Rating: ", ""));
+                    }
+
+                    if (order === "asc") {
+                        return (aValue > bValue) ? 1 : (aValue < bValue) ? -1 : 0;
+                    } else {
+                        return (aValue < bValue) ? 1 : (aValue > bValue) ? -1 : 0;
+                    }
+                });
+
+                $("#movieList").empty().append($movies);
+            }
+        });
+    </script>
+</body>
+</html>
