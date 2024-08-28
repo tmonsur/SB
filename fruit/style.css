@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Hind&display=swap');
+
+/* Global Styles */
+* {
+  -webkit-font-smoothing: antialiased;
+  color: #acbdce;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Root Variables */
+:root {
+  --border-radius: 10px;
+  --input-bg: #e3edf7;
+  --input-bg-focus: #d0e1f2;
+}
+
+/* Card Styles */
+.Card {
+  padding: 1px;
+  border-radius: var(--border-radius);
+  background: linear-gradient(-67deg, rgba(200, 216, 231, 0.7), rgba(255, 255, 255, 0.8));
+  overflow: hidden;
+  box-shadow: 
+    -2px -2px 6px rgba(255, 255, 255, 0.6),
+    2px 2px 12px rgba(200, 216, 231, 0.7);
+  width: 300px;
+}
+
+.CardInner {
+  padding: 16px;
+  background-color: #e2e9f4;
+  border-radius: var(--border-radius);
+}
+
+/* Layout */
+.container {
+  display: flex;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Input Styles */
+input {
+  background-color: var(--input-bg);
+  padding: 10px 20px;
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  color: #a9b8c9;
+  -webkit-appearance: none;
+  transition: all 240ms ease-out;
+  width: 100%;
+}
+
+input::placeholder {
+  color: #6d7f8f;
+}
+
+input:focus {
+  outline: none;
+  color: #6d7f8f;
+  background-color: var(--input-bg-focus);
+}
+
+/* Suggestions List */
+ul {
+  list-style-type: none;
+  padding: 15px 10px;
+  margin: 0;
+  background: transparent;
+  border-top: 1px solid #ccc;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+ul.has-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #444;
+  display: none;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+ul li {
+  padding: 10px;
+  color: black;
+}
+
+ul li:hover {
+  background-color: #f0f0f0;
+  color: #000;
+  cursor: pointer;
+}
